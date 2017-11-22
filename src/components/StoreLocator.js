@@ -3,6 +3,7 @@ import {loadScript, getUserLocation} from 'lib/utils';
 import classNames from './StoreLocator.css';
 import markerIcon from './pin.svg';
 import searchIcon from './search.svg';
+import cx from 'classnames';
 
 class StoreLocator extends Component {
   static defaultProps = {
@@ -15,7 +16,8 @@ class StoreLocator extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchLocation: null
+      searchLocation: null,
+      activeStoreId: null
     };
   }
 
@@ -34,7 +36,7 @@ class StoreLocator extends Component {
         </div>`
     });
     const marker = new google.maps.Marker({
-      position: store.position,
+      position: store.location,
       title: store.name,
       map: this.map,
       icon: this.props.markerIcon
@@ -45,6 +47,7 @@ class StoreLocator extends Component {
       }
       infoWindow.open(this.map, marker);
       this.infoWindow = infoWindow;
+      this.setState({activeStoreId: store.id});
     });
   };
 
@@ -111,14 +114,20 @@ class StoreLocator extends Component {
     if (!searchLocation) return stores;
     return stores
       .map(store => {
-        store.distance = this.getDistance(searchLocation, store.position);
+        store.distance = this.getDistance(searchLocation, store.location);
         return store;
       })
       .sort((a, b) => a.distance - b.distance);
   }
 
+  onStoreClick({location, id}) {
+    this.map.setCenter(location);
+    this.map.setZoom(16);
+    this.setState({activeStoreId: id});
+  }
+
   //noinspection JSCheckFunctionSignatures
-  render({searchHint}) {
+  render({searchHint}, {activeStoreId}) {
     const sortedStores = this.getSortedStores();
     return (
       <div className={classNames.container}>
@@ -129,8 +138,11 @@ class StoreLocator extends Component {
           </div>
           {searchHint && <div className={classNames.searchHint}>{searchHint}</div>}
           <ul className={classNames.shopsList}>
-            {sortedStores.map((store, i) => (
-              <li key={i}>
+            {sortedStores.map(store => (
+              <li
+                key={store.id}
+                onClick={() => this.onStoreClick(store)}
+                className={cx({[classNames.activeShop]: store.id === activeStoreId})}>
                 <h4>{store.name}</h4>
                 {store.distance && <div>{store.distance}km away</div>}
                 <address>{store.address}</address>

@@ -50,6 +50,9 @@
   transition: background .4s ease;
   position: relative;
 }
+.shopsList .activeShop {
+  background: #ebebeb;
+}
 
 .shopsList li h4 {
   margin: 0 0 10px;
