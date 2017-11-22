@@ -66,13 +66,13 @@ class StoreLocator extends Component {
       streetViewControl: false,
       fullscreenControl: false
     });
-    this.geocoder = new google.maps.Geocoder();
-    this.autocomplete = new google.maps.places.Autocomplete(this.input);
-    this.autocomplete.bindTo('bounds', this.map);
+    const geocoder = new google.maps.Geocoder();
+    this.setupAutocomplete();
     getUserLocation().then(location => {
       this.setState({searchLocation: location});
       this.map.setCenter(location);
-      this.geocoder.geocode({location: location}, (results, status) => {
+      this.map.setZoom(11);
+      geocoder.geocode({location: location}, (results, status) => {
         if (status === 'OK') {
           if (results[0]) {
             this.input.value = results[0].formatted_address;
@@ -82,6 +82,24 @@ class StoreLocator extends Component {
     });
     this.props.stores.forEach(this.addStoreMarker);
   };
+
+  setupAutocomplete() {
+    const autocomplete = new google.maps.places.Autocomplete(this.input);
+    autocomplete.bindTo('bounds', this.map);
+    autocomplete.addListener('place_changed', () => {
+      const place = autocomplete.getPlace();
+      if (!place.geometry) return;
+
+      // If the place has a geometry, then present it on a map.
+      if (place.geometry.viewport) {
+        this.map.fitBounds(place.geometry.viewport);
+      } else {
+        this.map.setCenter(place.geometry.location);
+        this.map.setZoom(11);
+      }
+      this.setState({searchLocation: place.geometry.location.toJSON()});
+    });
+  }
 
   componentDidMount() {
     this.loadGoogleMaps().then(this.setupMap);
