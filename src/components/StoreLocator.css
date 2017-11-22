@@ -1,9 +1,9 @@
 .container {
-
+  position: relative;
 }
 
 .map {
-  height: 400px;
+  height: 500px;
 }
 
 .infoWindow {
@@ -13,4 +13,36 @@
 .infoWindow h4 {
   margin: 0 0 5px;
   padding: 0;
+}
+
+.searchBox {
+  padding: 15px;
+  position: absolute;
+  top: 10px;
+  bottom: 30px;
+  left: 10px;
+  width: 350px;
+  background: #fff;
+  z-index: 1;
+}
+
+.shopsList {
+  list-style: none;
+  overflow: auto;
+  max-height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.shopsList li {
+  background: #F8F8F8;
+  color: #333333;
+  padding: 20px;
+  margin: 0 0 1px 0;
+  transition: background .4s ease;
+  position: relative;
+}
+
+.shopsList li h4 {
+  margin: 0 0 10px;
 }
