@@ -12,6 +12,13 @@ class StoreLocator extends Component {
     markerIcon: markerIcon
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchLocation: null
+    };
+  }
+
   loadGoogleMaps() {
     if (window.google && window.google.maps) return Promise.resolve();
     return loadScript(
@@ -41,6 +48,15 @@ class StoreLocator extends Component {
     });
   };
 
+  getDistance(p1, p2) {
+    return (
+      google.maps.geometry.spherical.computeDistanceBetween(
+        new google.maps.LatLng(p1),
+        new google.maps.LatLng(p2)
+      ) / 1000
+    ).toFixed(2);
+  }
+
   setupMap = () => {
     const {center, zoom} = this.props;
     this.map = new window.google.maps.Map(this.mapFrame, {
@@ -54,6 +70,7 @@ class StoreLocator extends Component {
     this.autocomplete = new google.maps.places.Autocomplete(this.input);
     this.autocomplete.bindTo('bounds', this.map);
     getUserLocation().then(location => {
+      this.setState({searchLocation: location});
       this.map.setCenter(location);
       this.geocoder.geocode({location: location}, (results, status) => {
         if (status === 'OK') {
@@ -70,7 +87,21 @@ class StoreLocator extends Component {
     this.loadGoogleMaps().then(this.setupMap);
   }
 
-  render({stores, searchHint}) {
+  getSortedStores() {
+    const {stores} = this.props;
+    const {searchLocation} = this.state;
+    if (!searchLocation) return stores;
+    return stores
+      .map(store => {
+        store.distance = this.getDistance(searchLocation, store.position);
+        return store;
+      })
+      .sort((a, b) => a.distance - b.distance);
+  }
+
+  //noinspection JSCheckFunctionSignatures
+  render({searchHint}) {
+    const sortedStores = this.getSortedStores();
     return (
       <div className={classNames.container}>
         <div className={classNames.searchBox}>
@@ -80,9 +111,10 @@ class StoreLocator extends Component {
           </div>
           {searchHint && <div className={classNames.searchHint}>{searchHint}</div>}
           <ul className={classNames.shopsList}>
-            {stores.map((store, i) => (
+            {sortedStores.map((store, i) => (
               <li key={i}>
                 <h4>{store.name}</h4>
+                {store.distance && <div>{store.distance}km away</div>}
                 <address>{store.address}</address>
               </li>
             ))}
