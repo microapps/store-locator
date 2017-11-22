@@ -2,7 +2,12 @@
   position: relative;
 }
 
+.container * {
+  box-sizing: border-box;
+}
+
 .map {
+  border: 1px solid #d7d7d7;
   height: 500px;
 }
 
@@ -16,9 +21,12 @@
 }
 
 .searchBox {
+  border: 1px solid #d7d7d7;
+  display: flex;
+  flex-direction: column;
   padding: 15px;
   position: absolute;
-  top: 10px;
+  top: 15px;
   bottom: 30px;
   left: 10px;
   width: 350px;
@@ -27,9 +35,9 @@
 }
 
 .shopsList {
+  border: 1px solid #d7d7d7;
   list-style: none;
   overflow: auto;
-  max-height: 100%;
   margin: 0;
   padding: 0;
 }
@@ -37,7 +45,7 @@
 .shopsList li {
   background: #F8F8F8;
   color: #333333;
-  padding: 20px;
+  padding: 15px;
   margin: 0 0 1px 0;
   transition: background .4s ease;
   position: relative;
@@ -45,4 +53,38 @@
 
 .shopsList li h4 {
   margin: 0 0 10px;
+}
+
+.searchInput {
+  border: 1px solid #d7d7d7;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.searchInput input{
+  border: 0;
+  background: #FFFFFF;
+  line-height: 36px;
+  height: 36px;
+  width: 100%;
+  padding: 0 36px 0 15px;
+  font-size: 14px;
+  outline: none;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 5px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 24px;
+  height: 16px;
+}
+
+.searchHint {
+  margin-bottom: 10px;
+  padding: 0 2px 0;
+  font-size: 14px;
+  color: #696969;
 }

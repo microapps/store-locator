@@ -2,6 +2,7 @@ import {Component} from 'preact';
 import {loadScript} from 'lib/utils';
 import classNames from './StoreLocator.css';
 import markerIcon from './pin.svg';
+import searchIcon from './search.svg';
 
 class StoreLocator extends Component {
   static defaultProps = {
@@ -55,7 +56,7 @@ class StoreLocator extends Component {
     });
   };
 
-  constructMap = () => {
+  setupMap = () => {
     const {center, zoom} = this.props;
     this.map = new window.google.maps.Map(this.mapFrame, {
       center,
@@ -66,16 +67,27 @@ class StoreLocator extends Component {
     });
     this.centerOnUserLocation();
     this.props.stores.forEach(this.addStoreMarker);
+    this.setUpAutocomplete();
+  };
+
+  setUpAutocomplete = () => {
+    this.autocomplete = new google.maps.places.Autocomplete(this.input);
+    this.autocomplete.bindTo('bounds', this.map);
   };
 
   componentDidMount() {
-    this.loadGoogleMaps().then(this.constructMap);
+    this.loadGoogleMaps().then(this.setupMap);
   }
 
-  render({stores}) {
+  render({stores, searchHint}) {
     return (
       <div className={classNames.container}>
         <div className={classNames.searchBox}>
+          <div className={classNames.searchInput}>
+            <input type="text" ref={input => (this.input = input)} />
+            <img className={classNames.searchIcon} src={searchIcon} />
+          </div>
+          {searchHint && <div className={classNames.searchHint}>{searchHint}</div>}
           <ul className={classNames.shopsList}>
             {stores.map((store, i) => (
               <li key={i}>
