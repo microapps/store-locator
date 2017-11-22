@@ -1,5 +1,5 @@
 import {Component} from 'preact';
-import {loadScript} from 'lib/utils';
+import {loadScript, getUserLocation} from 'lib/utils';
 import classNames from './StoreLocator.css';
 import markerIcon from './pin.svg';
 import searchIcon from './search.svg';
@@ -17,21 +17,6 @@ class StoreLocator extends Component {
     return loadScript(
       `https://maps.googleapis.com/maps/api/js?key=${this.props.apiKey}&libraries=geometry,places`
     );
-  }
-
-  centerOnUserLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        p => {
-          this.map.setCenter(new google.maps.LatLng(p.coords.latitude, p.coords.longitude));
-        },
-        () => {
-          throw new Error('user denied request for position');
-        }
-      );
-    } else {
-      throw new Error('no geolocation support');
-    }
   }
 
   addStoreMarker = store => {
@@ -65,14 +50,20 @@ class StoreLocator extends Component {
       streetViewControl: false,
       fullscreenControl: false
     });
-    this.centerOnUserLocation();
-    this.props.stores.forEach(this.addStoreMarker);
-    this.setUpAutocomplete();
-  };
-
-  setUpAutocomplete = () => {
+    this.geocoder = new google.maps.Geocoder();
     this.autocomplete = new google.maps.places.Autocomplete(this.input);
     this.autocomplete.bindTo('bounds', this.map);
+    getUserLocation().then(location => {
+      this.map.setCenter(location);
+      this.geocoder.geocode({location: location}, (results, status) => {
+        if (status === 'OK') {
+          if (results[0]) {
+            this.input.value = results[0].formatted_address;
+          }
+        }
+      });
+    });
+    this.props.stores.forEach(this.addStoreMarker);
   };
 
   componentDidMount() {

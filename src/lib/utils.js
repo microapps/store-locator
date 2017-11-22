@@ -16,3 +16,17 @@ export function loadScript(src) {
     t.parentNode.insertBefore(s, t);
   });
 }
+
+export function getUserLocation() {
+  return new Promise((resolve, reject) => {
+    if (!navigator.geolocation) return reject('no geolocation support');
+    navigator.geolocation.getCurrentPosition(
+      p => {
+        resolve({lat: p.coords.latitude, lng: p.coords.longitude});
+      },
+      () => {
+        reject('user denied request for position');
+      }
+    );
+  });
+}
