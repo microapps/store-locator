@@ -1,0 +1,45 @@
+{
+  "name": "store-locator",
+  "version": "1.0.0",
+  "description": "Store locator module",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel-node $(npm bin)/webpack-dev-server --inline --env.dev",
+    "lint": "eslint --format 'node_modules/eslint-friendly-formatter' src --fix",
+    "build": "babel-node $(npm bin)/webpack --env.prod",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dmitriy Nevzorov",
+  "license": "MIT",
+  "dependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-core": "^6.24.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "postcss-cssnext": "^3.0.2",
+    "postcss-loader": "^2.0.8",
+    "postcss-reporter": "^5.0.0",
+    "preact": "^8.2.6",
+    "style-loader": "^0.19.0",
+    "webpack": "^3.8.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.0.2",
+    "eslint": "4.11.0",
+    "eslint-config-microapps-react": "^1.0.0",
+    "eslint-config-prettier": "2.8.0",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jest": "^21.3.2",
+    "eslint-plugin-prettier": "2.3.1",
+    "eslint-plugin-react": "^7.4.0",
+    "prettier": "1.8.2",
+    "webpack-dev-server": "^2.9.4"
+  }
+}
