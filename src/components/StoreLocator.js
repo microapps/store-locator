@@ -1,12 +1,14 @@
 import {Component} from 'preact';
 import {loadScript} from 'lib/utils';
 import classNames from './StoreLocator.css';
+import markerIcon from './pin.svg';
 
 class StoreLocator extends Component {
   static defaultProps = {
     stores: [],
     zoom: 6,
-    center: {lat: 39.6433995, lng: -6.4396778}
+    center: {lat: 39.6433995, lng: -6.4396778},
+    markerIcon: markerIcon
   };
 
   loadGoogleMaps() {
@@ -32,7 +34,7 @@ class StoreLocator extends Component {
   }
 
   addStoreMarker = store => {
-    const infowindow = new google.maps.InfoWindow({
+    const infoWindow = new google.maps.InfoWindow({
       content: `<div class="${classNames.infoWindow}">
           <h4>${store.title}</h4>
           ${store.details}
@@ -40,11 +42,16 @@ class StoreLocator extends Component {
     });
     const marker = new google.maps.Marker({
       position: store.position,
+      title: store.title,
       map: this.map,
-      title: store.title
+      icon: this.props.markerIcon
     });
-    marker.addListener('click', function() {
-      infowindow.open(this.map, marker);
+    marker.addListener('click', () => {
+      if (this.infoWindow) {
+        this.infoWindow.close();
+      }
+      infoWindow.open(this.map, marker);
+      this.infoWindow = infoWindow;
     });
   };
 

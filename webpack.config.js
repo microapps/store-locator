@@ -32,7 +32,7 @@ export default options => {
       })
     ],
     module: {
-      loaders: [
+      rules: [
         {
           exclude: /node_modules/,
           loader: 'babel-loader',
@@ -73,6 +73,21 @@ export default options => {
               'postcss-loader'
             ]
           })
+        },
+        {
+          test: /\.svg(\?.*)?$/,
+          loader: 'url-loader',
+          options: {
+            limit: 65000,
+            mimetype: 'image/svg+xml'
+          }
+        },
+        {
+          test: /\.(png|jpg)$/,
+          loader: 'url-loader',
+          options: {
+            limit: 65000
+          }
         }
       ]
     },
