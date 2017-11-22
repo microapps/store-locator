@@ -5,3 +5,12 @@
 .map {
   height: 400px;
 }
+
+.infoWindow {
+  max-width: 200px;
+}
+
+.infoWindow h4 {
+  margin: 0 0 5px;
+  padding: 0;
+}
