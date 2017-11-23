@@ -75,8 +75,13 @@ export default options => {
           })
         },
         {
-          test: /\.svg(\?.*)?$/,
+          test: /\.inline\.svg$/,
+          loader: 'react-svg-inline-loader'
+        },
+        {
+          test: /\.svg$/,
           loader: 'url-loader',
+          exclude: [/\.inline\.svg$/],
           options: {
             limit: 65000,
             mimetype: 'image/svg+xml'

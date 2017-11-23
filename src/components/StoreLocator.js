@@ -2,7 +2,9 @@ import {Component} from 'preact';
 import {loadScript, getUserLocation} from 'lib/utils';
 import classNames from './StoreLocator.css';
 import markerIcon from './pin.svg';
-import searchIcon from './search.svg';
+import SearchIcon from './SearchIcon';
+import DirectionIcon from './DirectionIcon';
+import WebIcon from './WebIcon';
 import cx from 'classnames';
 
 class StoreLocator extends Component {
@@ -134,7 +136,7 @@ class StoreLocator extends Component {
         <div className={classNames.searchBox}>
           <div className={classNames.searchInput}>
             <input type="text" ref={input => (this.input = input)} />
-            <img className={classNames.searchIcon} src={searchIcon} />
+            <SearchIcon className={classNames.searchIcon} />
           </div>
           {searchHint && <div className={classNames.searchHint}>{searchHint}</div>}
           <ul className={classNames.storesList}>
@@ -146,12 +148,19 @@ class StoreLocator extends Component {
                   onClick={() => this.onStoreClick(store)}
                   className={cx({[classNames.activeShop]: store.id === activeStoreId})}>
                   <h4>{store.name}</h4>
-                  {store.distance && <div>{store.distance}km away</div>}
+                  {store.distance && <div className={classNames.storeDistance}>{store.distance}km away</div>}
                   <address>{store.address}</address>
                   <div className={classNames.storeActions} onClick={e => e.stopPropagation()}>
                     <a target="_blank" href={`https://www.google.com/maps?daddr=@${locationStr}`}>
-                      Directions
-                    </a>
+                      <DirectionIcon />
+                      directions
+                    </a>{' '}
+                    {store.website && (
+                      <a target="_blank" href={store.website}>
+                        <WebIcon />
+                        website
+                      </a>
+                    )}
                   </div>
                 </li>
               );

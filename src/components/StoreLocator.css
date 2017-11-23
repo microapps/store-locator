@@ -8,6 +8,7 @@
 
 .map {
   border: 1px solid #d7d7d7;
+  background-color: rgb(229, 227, 223);
   height: 500px;
 }
 
@@ -47,7 +48,7 @@
   color: #333333;
   padding: 15px;
   margin: 0 0 1px 0;
-  transition: background .4s ease;
+  transition: background .2s ease;
   position: relative;
 }
 .storesList .activeShop {
@@ -55,6 +56,11 @@
 }
 
 .storesList li h4 {
+  margin: 0 0 5px;
+  font-size: 14px;
+}
+
+.storesList li address {
   margin: 0 0 10px;
 }
 
@@ -93,5 +99,34 @@
 }
 
 .storeActions {
+  text-transform: uppercase;
+  font-size: 13px;
+}
 
+.storeActions a {
+  margin-right: 10px;
+  text-decoration: none;
+  color: #999999;
+  transition: color .2s ease;
+}
+
+.storeActions a:hover {
+  color: #000;
+}
+
+.storeActions a:hover svg {
+  fill: #000;
+}
+
+.storeActions a svg {
+  vertical-align: middle;
+  margin-right: 3px;
+  fill: #999999;
+  transition: fill .2s ease;
+}
+
+.storeDistance {
+  color: #999999;
+  font-size: 14px;
+  margin-bottom: 5px;
 }
