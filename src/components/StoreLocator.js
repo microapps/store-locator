@@ -148,7 +148,9 @@ class StoreLocator extends Component {
                   onClick={() => this.onStoreClick(store)}
                   className={cx({[classNames.activeShop]: store.id === activeStoreId})}>
                   <h4>{store.name}</h4>
-                  {store.distance && <div className={classNames.storeDistance}>{store.distance}km away</div>}
+                  {store.distance && (
+                    <div className={classNames.storeDistance}>{store.distance}km away</div>
+                  )}
                   <address>{store.address}</address>
                   <div className={classNames.storeActions} onClick={e => e.stopPropagation()}>
                     <a target="_blank" href={`https://www.google.com/maps?daddr=@${locationStr}`}>

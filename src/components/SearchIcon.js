@@ -10,10 +10,10 @@ export default ({className}) => (
     <g
       fill="none"
       stroke="#666"
-      stroke-width="4"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-miterlimit="10">
+      strokeWidth="4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeMiterlimit="10">
       <circle cx="10.12" cy="10.12" r="8.12" />
       <path d="M15.849 16.077l6.039 6.04" />
     </g>
