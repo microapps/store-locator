@@ -45,3 +45,13 @@ A drop-in module for a website that shows a google map with list of stores in th
       })
     </script>
 ```
+
+## Configuration options
+
+- `container` - id of the element where the map will be rendered
+- `stores` - an array of stores to render on a map,
+- `zoom` - initial map zoom `default: 6`,
+- `center` - initial map center `default: {lat: 39.6433995, lng: -6.4396778}`
+- `markerIcon` - custom marker icon
+- `searchHint` - text rendered after a search input
+
