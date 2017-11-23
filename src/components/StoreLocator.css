@@ -1,5 +1,6 @@
 .container {
   position: relative;
+  background: #fff;
 }
 
 .container * {
@@ -44,11 +45,11 @@
 }
 
 .storesList li {
-  background: #F8F8F8;
+  background: #f8f8f8;
   color: #333333;
   padding: 15px;
   margin: 0 0 1px 0;
-  transition: background .2s ease;
+  transition: background 0.2s ease;
   position: relative;
 }
 .storesList .activeShop {
@@ -70,9 +71,9 @@
   margin-bottom: 10px;
 }
 
-.searchInput input{
+.searchInput input {
   border: 0;
-  background: #FFFFFF;
+  background: #ffffff;
   line-height: 36px;
   height: 36px;
   width: 100%;
@@ -107,7 +108,7 @@
   margin-right: 10px;
   text-decoration: none;
   color: #999999;
-  transition: color .2s ease;
+  transition: color 0.2s ease;
 }
 
 .storeActions a:hover {
@@ -122,11 +123,46 @@
   vertical-align: middle;
   margin-right: 3px;
   fill: #999999;
-  transition: fill .2s ease;
+  transition: fill 0.2s ease;
 }
 
 .storeDistance {
   color: #999999;
   font-size: 14px;
   margin-bottom: 5px;
+}
+
+@media (max-width: 767px) {
+  .searchBox {
+    padding: 10px;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: auto;
+    width: auto;
+  }
+
+  .storesList {
+    position: absolute;
+    top: 350px;
+    left: -11px;
+    right: -11px;
+    height: 250px;
+  }
+
+  .map {
+    height: 350px;
+  }
+
+  .searchHint {
+    display: none;
+  }
+
+  .searchInput {
+    margin-bottom: 0;
+  }
+
+  .container {
+    padding-bottom: 270px;
+  }
 }
