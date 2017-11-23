@@ -137,17 +137,25 @@ class StoreLocator extends Component {
             <img className={classNames.searchIcon} src={searchIcon} />
           </div>
           {searchHint && <div className={classNames.searchHint}>{searchHint}</div>}
-          <ul className={classNames.shopsList}>
-            {sortedStores.map(store => (
-              <li
-                key={store.id}
-                onClick={() => this.onStoreClick(store)}
-                className={cx({[classNames.activeShop]: store.id === activeStoreId})}>
-                <h4>{store.name}</h4>
-                {store.distance && <div>{store.distance}km away</div>}
-                <address>{store.address}</address>
-              </li>
-            ))}
+          <ul className={classNames.storesList}>
+            {sortedStores.map(store => {
+              const locationStr = `${store.location.lat},${store.location.lng}`;
+              return (
+                <li
+                  key={store.id}
+                  onClick={() => this.onStoreClick(store)}
+                  className={cx({[classNames.activeShop]: store.id === activeStoreId})}>
+                  <h4>{store.name}</h4>
+                  {store.distance && <div>{store.distance}km away</div>}
+                  <address>{store.address}</address>
+                  <div className={classNames.storeActions} onClick={e => e.stopPropagation()}>
+                    <a target="_blank" href={`https://www.google.com/maps?daddr=@${locationStr}`}>
+                      Directions
+                    </a>
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         </div>
         <div className={classNames.map} ref={mapFrame => (this.mapFrame = mapFrame)} />

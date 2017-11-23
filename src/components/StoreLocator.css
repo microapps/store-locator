@@ -34,7 +34,7 @@
   z-index: 1;
 }
 
-.shopsList {
+.storesList {
   border: 1px solid #d7d7d7;
   list-style: none;
   overflow: auto;
@@ -42,7 +42,7 @@
   padding: 0;
 }
 
-.shopsList li {
+.storesList li {
   background: #F8F8F8;
   color: #333333;
   padding: 15px;
@@ -50,11 +50,11 @@
   transition: background .4s ease;
   position: relative;
 }
-.shopsList .activeShop {
+.storesList .activeShop {
   background: #ebebeb;
 }
 
-.shopsList li h4 {
+.storesList li h4 {
   margin: 0 0 10px;
 }
 
@@ -90,4 +90,8 @@
   padding: 0 2px 0;
   font-size: 14px;
   color: #696969;
+}
+
+.storeActions {
+
 }
