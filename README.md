@@ -4,7 +4,7 @@ A drop-in module for a website that shows a google map with list of stores in th
 
 ![Screenshot](/screenshot.png?raw=true)
 
-[Demo](https://monei.github.io/store-locator/)
+[Live Demo](https://monei.github.io/store-locator/)
 
 ## Features
 - draws all stores on a map
