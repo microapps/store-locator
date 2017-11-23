@@ -102,6 +102,7 @@ export default options => {
     },
     devServer: {
       port: process.env.PORT || 3000,
+      contentBase: './src',
       open: true
     }
   };
