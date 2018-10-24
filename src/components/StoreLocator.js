@@ -28,7 +28,7 @@ class StoreLocator extends Component {
     homeLocationHint: 'Current location',
     homeMarkerIcon: 'http://maps.google.com/mapfiles/kml/pushpin/grn-pushpin.png',
     storeMarkerIcon: 'http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png',
-    unitSystem: 0
+    unitSystem: 'METRIC'
   };
 
   constructor(props) {
@@ -218,7 +218,12 @@ class StoreLocator extends Component {
       });
     }).then(data => {
       let result = data.sort((a, b) => a.distance - b.distance);
-      if (limit) result = result.slice(0, limit);
+      if (limit) {
+        result = result.map((store, i) => {
+          store.hidden = i + 1 > limit;
+          return store;
+        });
+      }
       this.clearMarkers();
       const bounds = new google.maps.LatLngBounds();
       bounds.extend(searchLocation);
@@ -259,7 +264,10 @@ class StoreLocator extends Component {
                 <li
                   key={store.id}
                   onClick={() => this.onStoreClick(store)}
-                  className={cx({[classNames.activeShop]: store.id === activeStoreId})}>
+                  className={cx({
+                    [classNames.activeStore]: store.id === activeStoreId,
+                    [classNames.hiddenStore]: store.hidden
+                  })}>
                   <h4>{store.name}</h4>
                   {store.distanceText && (
                     <div className={classNames.storeDistance}>

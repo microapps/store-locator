@@ -52,8 +52,12 @@
   transition: background 0.2s ease;
   position: relative;
 }
-.storesList .activeShop {
+.storesList .activeStore {
   background: #ebebeb;
+}
+
+.storesList .hiddenStore {
+  display: none;
 }
 
 .storesList li h4 {
