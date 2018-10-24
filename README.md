@@ -68,4 +68,5 @@ A drop-in module for a website that shows a google map with list of stores in th
 - `travelMode` - the mode used to calculate distance `WALKING` or `DRIVING`, `default: 'DRIVING'`
 - `unitSystem` - used to show distance `METRIC` or `IMPERIAL` `default: 'METRIC'`
 - `limit` - shows only first n closest results to the location
+- `homeLocationHint` - text that appears in an info window of home location marker `default: 'Current location'`
 
