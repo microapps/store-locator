@@ -23,6 +23,7 @@ class StoreLocator extends Component {
   static defaultProps = {
     stores: [],
     zoom: 6,
+    limit: 10,
     center: {lat: 39.6433995, lng: -6.4396778},
     travelMode: 'DRIVING',
     homeLocationHint: 'Current location',
@@ -218,18 +219,16 @@ class StoreLocator extends Component {
       });
     }).then(data => {
       let result = data.sort((a, b) => a.distance - b.distance);
-      if (limit) {
-        result = result.map((store, i) => {
-          store.hidden = i + 1 > limit;
-          return store;
-        });
-      }
-      this.clearMarkers();
       const bounds = new google.maps.LatLngBounds();
       bounds.extend(searchLocation);
-      result.forEach(store => {
-        bounds.extend(store.location);
-        this.addStoreMarker(store);
+      this.clearMarkers();
+      result = result.map((store, i) => {
+        store.hidden = i + 1 > limit;
+        if (!store.hidden) {
+          bounds.extend(store.location);
+          this.addStoreMarker(store);
+        }
+        return store;
       });
       this.map.fitBounds(bounds);
       this.map.setZoom(this.map.getZoom() - 1);
@@ -273,7 +272,7 @@ class StoreLocator extends Component {
                     <div className={classNames.storeDistance}>
                       {store.distanceText} away{' '}
                       {store.durationText &&
-                        `(${store.durationText} by ${travelModes[travelMode]})`}
+                      `(${store.durationText} by ${travelModes[travelMode]})`}
                     </div>
                   )}
                   <address>{store.address}</address>
