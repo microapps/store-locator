@@ -30,6 +30,13 @@ A drop-in module for a website that shows a google map with list of stores in th
       storeLocator({
         container: 'store-locator',
         apiKey: 'GOOGLE_MAPS_API_KEY',
+        center: {lat: 42.382387, lng: -71.116648},
+        travelMode: 'WALKING',
+        unitSystem: 'METRIC',
+        storeMarkerIcon: './storeIcon.png',
+        homeMarkerIcon: './homeIcon.png',
+        markerIconSize: [40, 62],
+        limit: 2,
         searchHint: "Not all stores sell our whole range so if you're looking for a specific product we recommend you call ahead.",
         stores: [
           {
@@ -54,6 +61,11 @@ A drop-in module for a website that shows a google map with list of stores in th
 - `stores` - an array of stores to render on a map,
 - `zoom` - initial map zoom `default: 6`,
 - `center` - initial map center `default: {lat: 39.6433995, lng: -6.4396778}`
-- `markerIcon` - custom marker icon
+- `storeMarkerIcon` - custom store marker icon
+- `homeMarkerIcon` - custom current location marker icon
+- `markerIconSize` - an array of [x, y] to scale marker icon
 - `searchHint` - text rendered after a search input
+- `travelMode` - the mode used to calculate distance `WALKING` or `DRIVING`, `default: 'DRIVING'`
+- `unitSystem` - used to show distance `METRIC` or `IMPERIAL` `default: 'METRIC'`
+- `limit` - shows only first n closest results to the location
 
