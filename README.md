@@ -28,32 +28,32 @@ A drop-in module for a website that shows a google map with list of stores in th
 </div>
 <script src="store-locator.js"></script>
 <script>
-      storeLocator({
-        container: 'store-locator',
-        apiKey: 'GOOGLE_MAPS_API_KEY',
-        center: {lat: 42.382387, lng: -71.116648},
-        travelMode: 'WALKING',
-        unitSystem: 'METRIC',
-        storeMarkerIcon: './storeIcon.png',
-        homeMarkerIcon: './homeIcon.png',
-        markerIconSize: [40, 62],
-        limit: 1,
-        searchHint: "Not all stores sell our whole range so if you're looking for a specific product we recommend you call ahead.",
-        stores: [
-          {
-            name: 'PAEZ FLAGSHIP STORE EL BORN',
-            address: 'Carrer de les Caputxes, 2, 08003 Barcelona, Spain',
-            location: {lat: 41.3833695, lng: 2.1814855999999736},
-            website: 'http://microapps.com'
-          },
-          {
-            name: 'PAEZ STORE CC. Maremagnum',
-            address: "Moll d'Espanya, 5, 08039 Barcelona, Spain",
-            location: {lat: 41.3752, lng: 2.18286999999998}
-          }
-        ]
-      })
-    </script>
+  storeLocator({
+    container: 'store-locator',
+    apiKey: 'GOOGLE_MAPS_API_KEY',
+    center: {lat: 42.382387, lng: -71.116648},
+    travelMode: 'WALKING',
+    unitSystem: 'METRIC',
+    storeMarkerIcon: './storeIcon.png',
+    homeMarkerIcon: './homeIcon.png',
+    markerIconSize: [40, 62],
+    limit: 1,
+    searchHint: "Not all stores sell our whole range so if you're looking for a specific product we recommend you call ahead.",
+    stores: [
+      {
+        name: 'PAEZ FLAGSHIP STORE EL BORN',
+        address: 'Carrer de les Caputxes, 2, 08003 Barcelona, Spain',
+        location: {lat: 41.3833695, lng: 2.1814855999999736},
+        website: 'http://microapps.com'
+      },
+      {
+        name: 'PAEZ STORE CC. Maremagnum',
+        address: "Moll d'Espanya, 5, 08039 Barcelona, Spain",
+        location: {lat: 41.3752, lng: 2.18286999999998}
+      }
+    ]
+  })
+</script>
 ```
 
 ## Configuration options
