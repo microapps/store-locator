@@ -15,18 +15,18 @@ A drop-in module for a website that shows a google map with list of stores in th
 - provides a direction link to each store
 - allows to set custom markers
 
-## Usage
-
-- Include [store-locator.js](/dist/store-locator.js?raw=true) and [store-locator.css](/dist/store-locator.css?raw=true) on your page
-- Add a container where you want the map to be rendered
-- Initialize the script
-
 ## CDN
 
 ```html
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/microapps/store-locator@1.1.1/dist/store-locator.css">
 <script src="https://cdn.jsdelivr.net/gh/microapps/store-locator@1.1.1/dist/store-locator.js"></script>
 ```
+
+## Usage
+
+- Include [store-locator.js](/dist/store-locator.js?raw=true) and [store-locator.css](/dist/store-locator.css?raw=true) on your page
+- Add a container where you want the map to be rendered
+- Initialize the script
 
 
 ```html
