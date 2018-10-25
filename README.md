@@ -9,10 +9,11 @@ A drop-in module for a website that shows a google map with list of stores in th
 ## Features
 - draws all stores on a map
 - shows a list of stores in the side bar providing map navigation
-- determains user location and sorts the stores, showing nearest first
-- shows a distance to each store form a given location
-- allows to search for nearest store to a givenn location
+- determines user location and sorts the stores, showing nearest first
+- shows a distance to each store form a given location (walking or driving)
+- allows to search for nearest store to a given location
 - provides a direction link to each store
+- allows to set custom markers
 
 ## Usage
 
