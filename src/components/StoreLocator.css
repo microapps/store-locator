@@ -52,12 +52,14 @@
   transition: background 0.2s ease;
   position: relative;
 }
-.storesList .activeStore {
-  background: #ebebeb;
-}
 
 .storesList .hiddenStore {
-  display: none;
+  opacity: 0.3;
+}
+
+.storesList .activeStore {
+  background: #ebebeb;
+  opacity: 1;
 }
 
 .storesList li h4 {

@@ -119,7 +119,7 @@ class StoreLocator extends Component {
   getDirectDistance(origin, destination) {
     const distance =
       google.maps.geometry.spherical.computeDistanceBetween(origin, destination) / 1000;
-    if (this.props.unitSystem === 1) {
+    if (units[this.props.unitSystem] === 1) {
       return {
         distance: distance / toMiles,
         distanceText: `${(distance / toMiles).toFixed(2)} mi`
@@ -165,6 +165,7 @@ class StoreLocator extends Component {
     this.distanceService = new google.maps.DistanceMatrixService();
     const geocoder = new google.maps.Geocoder();
     this.setupAutocomplete();
+    this.state.stores.map(this.addStoreMarker);
     getUserLocation().then(location => {
       this.setState({searchLocation: location});
       this.calculateDistance(location);
@@ -221,12 +222,10 @@ class StoreLocator extends Component {
       let result = data.sort((a, b) => a.distance - b.distance);
       const bounds = new google.maps.LatLngBounds();
       bounds.extend(searchLocation);
-      this.clearMarkers();
       result = result.map((store, i) => {
         store.hidden = i + 1 > limit;
         if (!store.hidden) {
           bounds.extend(store.location);
-          this.addStoreMarker(store);
         }
         return store;
       });
