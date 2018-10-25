@@ -2,7 +2,7 @@
   "name": "store-locator",
   "version": "1.1.1",
   "description": "Store locator module",
-  "main": "index.js",
+  "main": "dist/store-locator.js",
   "scripts": {
     "start": "babel-node $(npm bin)/webpack-dev-server --inline --env.dev",
     "lint": "eslint --format 'node_modules/eslint-friendly-formatter' src --fix",
