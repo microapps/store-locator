@@ -17,7 +17,7 @@ export default options => {
         options: {
           postcss: [
             require('postcss-cssnext')({
-              browsers: ['last 2 versions', '> 5%']
+              browsers: ['>0.25%', 'not op_mini all', 'ie 11']
             }),
             require('postcss-reporter')()
           ]
@@ -34,7 +34,7 @@ export default options => {
     module: {
       rules: [
         {
-          exclude: /node_modules/,
+          exclude: /node_modules\/(?!(p-map)\/).*/,
           loader: 'babel-loader',
           options: {
             cacheDirectory: true,
@@ -48,7 +48,7 @@ export default options => {
                 'env',
                 {
                   targets: {
-                    browsers: ['last 2 versions']
+                    browsers: ['>0.25%', 'not op_mini all', 'ie 11']
                   },
                   modules: false,
                   loose: true
