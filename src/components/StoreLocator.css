@@ -1,16 +1,22 @@
 .container {
   position: relative;
   background: #fff;
+  display: flex;
 }
 
 .container * {
   box-sizing: border-box;
 }
 
+.container.fullWidthMap .searchBox{
+  position: absolute;
+}
+
 .map {
   border: 1px solid #d7d7d7;
   background-color: rgb(229, 227, 223);
   height: 500px;
+  flex: 1;
 }
 
 .infoWindow {
@@ -24,16 +30,17 @@
 
 .searchBox {
   border: 1px solid #d7d7d7;
+  border-right: 0;
   display: flex;
   flex-direction: column;
   padding: 15px;
-  position: absolute;
   top: 15px;
   bottom: 30px;
   left: 10px;
   width: 350px;
   background: #fff;
   z-index: 1;
+  max-height: 500px;
 }
 
 .storesList {
@@ -64,7 +71,7 @@
 
 .storesList li h4 {
   margin: 0 0 5px;
-  font-size: 14px;
+  font-size: 1em;
 }
 
 .storesList li address {
@@ -84,7 +91,7 @@
   height: 36px;
   width: 100%;
   padding: 0 36px 0 15px;
-  font-size: 14px;
+  font-size: 1em;
   outline: none;
 }
 
@@ -101,13 +108,13 @@
 .searchHint {
   margin-bottom: 10px;
   padding: 0 2px 0;
-  font-size: 14px;
+  font-size: 0.9em;
   color: #696969;
 }
 
 .storeActions {
   text-transform: uppercase;
-  font-size: 13px;
+  font-size: 0.9em;
 }
 
 .storeActions a {
@@ -134,7 +141,7 @@
 
 .storeDistance {
   color: #999999;
-  font-size: 14px;
+  font-size: 0.9em;
   margin-bottom: 5px;
 }
 

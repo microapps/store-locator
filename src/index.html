@@ -6,10 +6,16 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Store Locator</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="store-locator.css">
+    <style>
+      body {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Store Locator</h1>
     <div id="my-store-locator">
       <!-- map will be rendered here-->
     </div>
@@ -17,69 +23,52 @@
     <script>
       storeLocator({
         container: 'my-store-locator',
-        center: {lat: 42.382387, lng: -71.116648},
-        travelMode: 'WALKING',
-        unitSystem: 'IMPERIAL',
-        storeMarkerIcon: './school.png',
-        homeMarkerIcon: './house.png',
-        markerIconSize: [40, 62],
-        limit: 2,
         apiKey: 'AIzaSyCO9TfbbV0j_iRdsi2b2rZx26jEVd-5XI0',
-        searchHint: "Below are your two proximity schools.",
+        markerIconSize: [40, 40],
+        limit: 1,
+        searchHint: "Not all stores sell our whole range so if you're looking for a specific product we recommend you call ahead.",
+        homeLocationHint: 'Current location',
         stores: [
           {
-            name: 'Baldwin School',
-            address: '28 Sacramento Street Cambridge, MA 02138',
-            location: {lat: 42.382387, lng: -71.116648},
-            website: 'http://baldwin.cpsd.us'
+            name: 'PAEZ FLAGSHIP STORE EL BORN',
+            address: 'Carrer de les Caputxes, 2, 08003 Barcelona, Spain',
+            location: {lat: 41.3833695, lng: 2.1814855999999736},
+            website: 'http://microapps.com'
           },
           {
-            name: 'Cambridgeport',
-            address: "89 Elm Street Cambridge, MA 02138",
-            location: {lat: 42.369507, lng: -71.09760},
-            website: 'http://cambridgeport.cpsd.us'
+            name: 'PAEZ STORE CC. Maremagnum',
+            address: "Moll d'Espanya, 5, 08039 Barcelona, Spain",
+            location: {lat: 41.3752, lng: 2.18286999999998}
           },
           {
-            name: "Dr. Martin Luther King, Jr. School - PAUS (Non-Immersion)",
-            address: '102 Putnam Avenue Cambridge, MA 02139',
-            location: {lat: 42.366912, lng: -71.113514},
-            website: 'http://mlk.cpsd.us'
+            name: "PAEZ POP UP STORE CC.L'illa",
+            address: 'Avinguda Diagonal, 557, 08029 Barcelona, Spain',
+            location: {lat: 41.3897854, lng: 2.1355045000000246}
           },
           {
-            name: 'Fletcher Maynard Academy',
-            address: '225 Windsor Street Cambridge, MA 02139',
-            location: {lat: 42.367093, lng: -71.0954796},
-            website: 'http://fma.cpsd.us'
+            name: 'PAEZ ZARAGOZA',
+            address: 'Calle San Félix, 2, 50003 Zaragoza, Spain',
+            location: {lat: 41.65346359999999, lng: -0.8788438999999926}
           },
           {
-            name: 'King Open',
-            address: '850 Cambridge Steet Cambridge, MA 02141',
-            location: {lat: 42.372335, lng: -71.091401},
-            website: 'http://kingopen.cpsd.us'
+            name: 'PAEZ PALMA',
+            address: 'Carrer de la Bosseria, 12, 07001 Palma, Illes Balears, Spain',
+            location: {lat: 39.5706846, lng: 2.651996899999972}
           },
           {
-            name: 'Haggerty School',
-            address: '110 Cushing Street Cambridge, MA 02138',
-            location: {lat: 42.37778, lng: -71.152066},
-            website: 'http://haggerty.cpsd.us'
+            name: 'PAEZ TENERIFE',
+            address: 'Calle Ramón y Cajal, 37, 38004 Santa Cruz de Tenerife, Spain',
+            location: {lat: 28.4660137, lng: -16.258979700000054}
           },
           {
-            name: 'Kennedy-Longfellow School - CSUS',
-            address: '158 Spring St. Cambridge, MA 02141',
-            location: {lat: 42.369759, lng: -71.086672},
-            website: 'http://klo.cpsd.us'
+            name: 'PAEZ CHIADO',
+            address: 'R. do Alecrim 62, 1200-243 Lisboa, Portugal',
+            location: {lat: 38.7094783, lng: -9.143068699999958}
           },
           {
-            name: 'Peabody School',
-            address: '70 Rindge Avenue Cambridge, MA 02140',
-            location: {lat: 42.391468, lng: -71.128342},
-            website: 'http://klo.cpsd.us'
-          },
-          {
-            name: 'Graham and Parks School',
-            address: '44 Linnaean Street Cambridge, MA 02138',
-            location: {lat: 42.3830772, lng: -71.1240123},
-            website: 'http://grahamandparks.cpsd.us'
+            name: 'PAEZ PORTO',
+            address: 'R. das Carmelitas 151, 4050-162 Porto, Portugal',
+            location: {lat: 41.1462871, lng: -8.61489800000004}
           }
         ]
       })

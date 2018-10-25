@@ -29,7 +29,9 @@ class StoreLocator extends Component {
     homeLocationHint: 'Current location',
     homeMarkerIcon: 'http://maps.google.com/mapfiles/kml/pushpin/grn-pushpin.png',
     storeMarkerIcon: 'http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png',
-    unitSystem: 'METRIC'
+    unitSystem: 'METRIC',
+    farAwayMarkerOpacity: 0.6,
+    fullWidthMap: false
   };
 
   constructor(props) {
@@ -85,6 +87,7 @@ class StoreLocator extends Component {
       this.setState({activeStoreId: store.id});
     });
     this.markers.push(marker);
+    return marker;
   };
 
   getDistance(p1, p2) {
@@ -222,15 +225,20 @@ class StoreLocator extends Component {
       let result = data.sort((a, b) => a.distance - b.distance);
       const bounds = new google.maps.LatLngBounds();
       bounds.extend(searchLocation);
+      this.clearMarkers();
       result = result.map((store, i) => {
         store.hidden = i + 1 > limit;
-        if (!store.hidden) {
+        const marker = this.addStoreMarker(store);
+        if (store.hidden) {
+          marker.setOpacity(this.props.farAwayMarkerOpacity);
+        } else {
+          console.log('extend bounds to', store);
           bounds.extend(store.location);
         }
         return store;
       });
       this.map.fitBounds(bounds);
-      this.map.setZoom(this.map.getZoom() - 1);
+      this.map.setCenter(bounds.getCenter(), this.map.getZoom() - 1);
       this.setState({stores: result});
     });
   }
@@ -246,9 +254,9 @@ class StoreLocator extends Component {
   }
 
   //noinspection JSCheckFunctionSignatures
-  render({searchHint, travelMode}, {activeStoreId, stores}) {
+  render({searchHint, travelMode, fullWidthMap}, {activeStoreId, stores}) {
     return (
-      <div className={classNames.container}>
+      <div className={cx(classNames.container, {[classNames.fullWidthMap]: fullWidthMap})}>
         <div className={classNames.searchBox}>
           <div className={classNames.searchInput}>
             <input type="text" ref={input => (this.input = input)} />
@@ -271,7 +279,7 @@ class StoreLocator extends Component {
                     <div className={classNames.storeDistance}>
                       {store.distanceText} away{' '}
                       {store.durationText &&
-                      `(${store.durationText} by ${travelModes[travelMode]})`}
+                        `(${store.durationText} by ${travelModes[travelMode]})`}
                     </div>
                   )}
                   <address>{store.address}</address>

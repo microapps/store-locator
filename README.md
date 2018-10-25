@@ -2,7 +2,7 @@
 
 A drop-in module for a website that shows a google map with list of stores in the sidebar. 
 
-![Screenshot](/screenshot.png?raw=true)
+![Gif](/demo.gif?raw=true)
 
 [Live Demo](https://microapps.github.io/store-locator/)
 
@@ -36,7 +36,7 @@ A drop-in module for a website that shows a google map with list of stores in th
         storeMarkerIcon: './storeIcon.png',
         homeMarkerIcon: './homeIcon.png',
         markerIconSize: [40, 62],
-        limit: 2,
+        limit: 1,
         searchHint: "Not all stores sell our whole range so if you're looking for a specific product we recommend you call ahead.",
         stores: [
           {
@@ -69,4 +69,6 @@ A drop-in module for a website that shows a google map with list of stores in th
 - `unitSystem` - used to show distance `METRIC` or `IMPERIAL` `default: 'METRIC'`
 - `limit` - shows only first n closest results to the location `default: 10`
 - `homeLocationHint` - text that appears in an info window of home location marker `default: 'Current location'`
+- `farAwayMarkerOpacity` - an opacity of a marker that is too far away (determined by `limit`)
+- `fullWidthMap` - changes the appearance to make the map full width and store list as an overlay on top of it
 
