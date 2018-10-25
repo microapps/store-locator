@@ -8,7 +8,7 @@
     "lint": "eslint --format 'node_modules/eslint-friendly-formatter' src --fix",
     "build": "babel-node $(npm bin)/webpack --env.prod",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git tag -f -a latest && git push --tags"
   },
   "author": "Dmitriy Nevzorov",
   "license": "MIT",
