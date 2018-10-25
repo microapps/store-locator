@@ -21,6 +21,13 @@ A drop-in module for a website that shows a google map with list of stores in th
 - Add a container where you want the map to be rendered
 - Initialize the script
 
+## CDN
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/microapps/store-locator@1.1.1/dist/store-locator.css">
+<script src="https://cdn.jsdelivr.net/gh/microapps/store-locator@1.1.1/dist/store-locator.js"></script>
+```
+
 
 ```html
 <div id="my-store-locator">
