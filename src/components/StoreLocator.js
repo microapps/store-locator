@@ -19,7 +19,7 @@ const units = {
 
 const toMiles = 1.609;
 
-class StoreLocator extends Component {
+export class StoreLocator extends Component {
   static defaultProps = {
     stores: [],
     zoom: 6,
@@ -272,7 +272,8 @@ class StoreLocator extends Component {
                   className={cx({
                     [classNames.activeStore]: store.id === activeStoreId,
                     [classNames.hiddenStore]: store.hidden
-                  })}>
+                  })}
+                >
                   <h4>{store.name}</h4>
                   {store.distanceText && (
                     <div className={classNames.storeDistance}>
@@ -304,5 +305,3 @@ class StoreLocator extends Component {
     );
   }
 }
-
-export default StoreLocator;

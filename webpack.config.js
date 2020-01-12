@@ -1,9 +1,13 @@
-import webpack from 'webpack';
-import path from 'path';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+const path = require('path');
+const webpack = require('webpack');
+const postcssPresetEnv = require('postcss-preset-env');
+const postcssReporter = require('postcss-reporter');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const autopfrefixer = require('autoprefixer');
 
-export default options => {
+module.exports = function(options) {
   const webpackConfig = {
+    mode: options.prod ? 'production' : 'development',
     context: path.resolve(__dirname, 'src'),
     entry: './index.js',
     output: {
@@ -15,15 +19,10 @@ export default options => {
     plugins: [
       new webpack.LoaderOptionsPlugin({
         options: {
-          postcss: [
-            require('postcss-cssnext')({
-              browsers: ['>0.25%', 'not op_mini all', 'ie 11']
-            }),
-            require('postcss-reporter')()
-          ]
+          postcss: [postcssPresetEnv({stage: 0}), postcssReporter()]
         }
       }),
-      new ExtractTextPlugin({
+      new MiniCssExtractPlugin({
         filename: 'store-locator.css',
         allChunks: true
       }),
@@ -38,20 +37,29 @@ export default options => {
           loader: 'babel-loader',
           options: {
             cacheDirectory: true,
+            sourceType: 'unambiguous',
             plugins: [
-              'transform-class-properties',
-              'transform-object-rest-spread',
-              ['transform-react-jsx', {pragma: 'h'}]
+              '@babel/plugin-transform-runtime',
+              '@babel/proposal-class-properties',
+              '@babel/proposal-object-rest-spread',
+              '@babel/plugin-proposal-optional-chaining',
+              '@babel/plugin-proposal-nullish-coalescing-operator',
+              [
+                '@babel/plugin-transform-react-jsx',
+                {
+                  pragma: 'h',
+                  pragmaFrag: 'Fragment'
+                }
+              ]
             ],
             presets: [
               [
-                'env',
+                '@babel/preset-env',
                 {
-                  targets: {
-                    browsers: ['>0.25%', 'not op_mini all', 'ie 11']
-                  },
-                  modules: false,
-                  loose: true
+                  useBuiltIns: 'entry',
+                  shippedProposals: true,
+                  loose: true,
+                  corejs: '3'
                 }
               ]
             ]
@@ -59,20 +67,24 @@ export default options => {
         },
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: [
-              {
-                loader: 'css-loader',
-                query: {
-                  modules: true,
-                  importLoaders: 1,
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+              options: {
+                modules: {
                   localIdentName: 'storeLocator-[local]'
                 }
-              },
-              'postcss-loader'
-            ]
-          })
+              }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true,
+                plugins: () => [autopfrefixer()]
+              }
+            }
+          ]
         },
         {
           test: /\.inline\.svg$/,
@@ -102,31 +114,12 @@ export default options => {
     },
     devServer: {
       port: process.env.PORT || 3000,
-      contentBase: './src',
-      open: true
+      contentBase: './src'
     }
   };
 
   if (options.dev) {
     webpackConfig.devtool = 'cheap-module-eval-source-map';
-  }
-
-  if (options.prod) {
-    webpackConfig.plugins.push(
-      new webpack.LoaderOptionsPlugin({
-        minimize: true,
-        debug: false
-      }),
-      new webpack.DefinePlugin({
-        'process.env.NODE_ENV': 'production'
-      }),
-      new webpack.optimize.AggressiveMergingPlugin(),
-      new webpack.optimize.OccurrenceOrderPlugin(),
-      new webpack.optimize.UglifyJsPlugin({
-        cache: true,
-        sourceMap: true
-      })
-    );
   }
 
   return webpackConfig;

@@ -1,5 +1,5 @@
-import {render} from 'preact';
-import StoreLocator from 'components/StoreLocator';
+const {render} = require('preact');
+const {StoreLocator} = require('components/StoreLocator');
 
 module.exports = function({container = 'store-locator', stores, ...config}) {
   const storesWithIds = stores.map((store, i) => {

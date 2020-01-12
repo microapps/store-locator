@@ -4,46 +4,65 @@
   "description": "Store locator module",
   "main": "dist/store-locator.js",
   "scripts": {
-    "start": "babel-node $(npm bin)/webpack-dev-server --inline --env.dev",
+    "start": "webpack-dev-server --env.dev",
     "lint": "eslint --format 'node_modules/eslint-friendly-formatter' src --fix",
-    "build": "babel-node $(npm bin)/webpack --env.prod",
+    "build": "webpack --env.prod",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postversion": "git push && git push --tags"
+    "release": "release-it"
   },
   "author": "Dmitriy Nevzorov",
   "license": "MIT",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "release-it": {
+    "git": {
+      "tagName": "v${version}",
+      "commitMessage": "chore: release v${version}"
+    },
+    "github": {
+      "release": true
+    },
+    "npm": {
+      "publish": false
+    }
+  },
   "dependencies": {
-    "babel-cli": "^6.24.0",
-    "babel-core": "^6.24.0",
-    "babel-loader": "^7.1.1",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-plugin-transform-react-jsx": "^6.24.1",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.6.1",
-    "classnames": "^2.2.5",
-    "css-loader": "^0.28.7",
-    "extract-text-webpack-plugin": "^3.0.2",
-    "p-map": "^2.0.0",
-    "postcss-cssnext": "^3.0.2",
-    "postcss-loader": "^2.0.8",
-    "postcss-reporter": "^5.0.0",
-    "preact": "^8.2.6",
-    "style-loader": "^0.19.0",
-    "url-loader": "^0.6.2",
-    "webpack": "^3.8.1"
+    "@babel/runtime": "^7.7.7",
+    "classnames": "^2.2.6",
+    "p-map": "^3.0.0",
+    "preact": "^10.2.1"
   },
   "devDependencies": {
-    "babel-eslint": "^8.0.2",
-    "eslint": "4.11.0",
-    "eslint-config-microapps-react": "^1.0.0",
-    "eslint-config-prettier": "2.8.0",
-    "eslint-friendly-formatter": "^3.0.0",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jest": "^21.3.2",
-    "eslint-plugin-prettier": "2.3.1",
-    "eslint-plugin-react": "^7.4.0",
-    "prettier": "1.8.2",
-    "webpack-dev-server": "^2.9.4"
+    "@babel/core": "^7.7.7",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.7.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.7.7",
+    "@babel/plugin-proposal-optional-chaining": "^7.7.5",
+    "@babel/plugin-transform-react-jsx": "^7.8.0",
+    "@babel/plugin-transform-runtime": "^7.7.6",
+    "@babel/preset-env": "^7.7.7",
+    "autoprefixer": "^9.7.3",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.4.2",
+    "mini-css-extract-plugin": "^0.9.0",
+    "postcss-loader": "^3.0.0",
+    "postcss-preset-env": "^6.7.0",
+    "postcss-reporter": "^6.0.1",
+    "prettier": "1.19.1",
+    "url-loader": "^3.0.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
   }
 }
