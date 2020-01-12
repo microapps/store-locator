@@ -1,11 +1,10 @@
 {
   "name": "store-locator",
   "version": "1.1.1",
-  "description": "Store locator module",
+  "description": "A drop-in module for a website that shows a google map with list of stores in the sidebar.",
   "main": "dist/store-locator.js",
   "scripts": {
     "start": "webpack-dev-server --env.dev",
-    "lint": "eslint --format 'node_modules/eslint-friendly-formatter' src --fix",
     "build": "webpack --env.prod",
     "test": "echo \"Error: no test specified\" && exit 1",
     "release": "release-it"
