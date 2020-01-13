@@ -59,7 +59,7 @@ export class StoreLocator extends Component {
   }
 
   loadStores = async searchLocation => {
-    if (!this.props.loadStores) return;
+    if (!this.props.loadStores) return this.state.stores;
     let stores = await this.props.loadStores(searchLocation);
     stores = this.addStoreIds(stores);
     this.setState({stores});
