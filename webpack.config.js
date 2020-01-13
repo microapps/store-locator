@@ -5,7 +5,7 @@ const postcssReporter = require('postcss-reporter');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const autopfrefixer = require('autoprefixer');
 
-module.exports = function(options) {
+module.exports = function(options = {}) {
   const webpackConfig = {
     mode: options.prod ? 'production' : 'development',
     context: path.resolve(__dirname, 'src'),
