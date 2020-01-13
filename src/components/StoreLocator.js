@@ -39,17 +39,32 @@ export class StoreLocator extends Component {
     this.state = {
       searchLocation: null,
       activeStoreId: null,
-      stores: props.stores
+      stores: this.addStoreIds(props.stores)
     };
     this.markers = [];
   }
 
-  loadGoogleMaps() {
+  addStoreIds(stores = []) {
+    return stores.map((store, i) => {
+      store.id = store.id || i;
+      return store;
+    });
+  }
+
+  async loadGoogleMaps() {
     if (window.google && window.google.maps) return Promise.resolve();
     return loadScript(
       `https://maps.googleapis.com/maps/api/js?key=${this.props.apiKey}&libraries=geometry,places`
     );
   }
+
+  loadStores = async searchLocation => {
+    if (!this.props.loadStores) return;
+    let stores = await this.props.loadStores(searchLocation);
+    stores = this.addStoreIds(stores);
+    this.setState({stores});
+    return stores;
+  };
 
   getMarkerIcon(icon) {
     if (!icon) return null;
@@ -89,7 +104,7 @@ export class StoreLocator extends Component {
     return marker;
   };
 
-  getDistance(p1, p2) {
+  async getDistance(p1, p2) {
     const origin = new google.maps.LatLng(p1);
     const destination = new google.maps.LatLng(p2);
     const directDistance = this.getDirectDistance(origin, destination);
@@ -155,7 +170,7 @@ export class StoreLocator extends Component {
     });
   }
 
-  setupMap = () => {
+  setupMap = async () => {
     const {center, zoom} = this.props;
     this.map = new window.google.maps.Map(this.mapFrame, {
       center,
@@ -168,19 +183,19 @@ export class StoreLocator extends Component {
     const geocoder = new google.maps.Geocoder();
     this.setupAutocomplete();
     this.state.stores.map(this.addStoreMarker);
-    getUserLocation().then(location => {
-      this.setState({searchLocation: location});
-      this.calculateDistance(location);
-      this.map.setCenter(location);
-      this.map.setZoom(11);
-      this.setHomeMarker(location);
-      geocoder.geocode({location: location}, (results, status) => {
-        if (status === 'OK') {
-          if (results[0]) {
-            this.input.value = results[0].formatted_address;
-          }
+    const location = await getUserLocation();
+    this.setState({searchLocation: location});
+    this.calculateDistance(location);
+    this.map.setCenter(location);
+    this.map.setZoom(11);
+    this.setHomeMarker(location);
+
+    geocoder.geocode({location: location}, (results, status) => {
+      if (status === 'OK') {
+        if (results[0]) {
+          this.input.value = results[0].formatted_address;
         }
-      });
+      }
     });
   };
 
@@ -212,37 +227,39 @@ export class StoreLocator extends Component {
     this.markers = [];
   }
 
-  calculateDistance(searchLocation) {
-    const {stores, limit} = this.props;
-    if (!searchLocation) return stores;
-    promiseMap(stores, store => {
+  async calculateDistance(searchLocation) {
+    const {limit} = this.props;
+    if (!searchLocation) return this.props.stores;
+    const stores = await this.loadStores(searchLocation);
+    const data = await promiseMap(stores, store => {
       return this.getDistance(searchLocation, store.location).then(result => {
         Object.assign(store, result);
         return store;
       });
-    }).then(data => {
-      let result = data.sort((a, b) => a.distance - b.distance);
-      const bounds = new google.maps.LatLngBounds();
-      bounds.extend(searchLocation);
-      this.clearMarkers();
-      result = result.map((store, i) => {
-        store.hidden = i + 1 > limit;
-        const marker = this.addStoreMarker(store);
-        if (store.hidden) {
-          marker.setOpacity(this.props.farAwayMarkerOpacity);
-        } else {
-          bounds.extend(store.location);
-        }
-        return store;
-      });
-      this.map.fitBounds(bounds);
-      this.map.setCenter(bounds.getCenter(), this.map.getZoom() - 1);
-      this.setState({stores: result});
     });
+    let result = data.sort((a, b) => a.distance - b.distance);
+    const bounds = new google.maps.LatLngBounds();
+    bounds.extend(searchLocation);
+    this.clearMarkers();
+    result = result.map((store, i) => {
+      store.hidden = i + 1 > limit;
+      const marker = this.addStoreMarker(store);
+      if (store.hidden) {
+        marker.setOpacity(this.props.farAwayMarkerOpacity);
+      } else {
+        bounds.extend(store.location);
+      }
+      return store;
+    });
+    this.map.fitBounds(bounds);
+    this.map.setCenter(bounds.getCenter(), this.map.getZoom() - 1);
+    this.setState({stores: result});
   }
 
   componentDidMount() {
-    this.loadGoogleMaps().then(this.setupMap);
+    this.loadGoogleMaps()
+      .then(this.loadStores)
+      .then(this.setupMap);
   }
 
   onStoreClick({location, id}) {

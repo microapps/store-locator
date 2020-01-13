@@ -46,19 +46,23 @@ A drop-in module for a website that shows a google map with list of stores in th
     markerIconSize: [40, 62],
     limit: 1,
     searchHint: "Not all stores sell our whole range so if you're looking for a specific product we recommend you call ahead.",
-    stores: [
-      {
-        name: 'PAEZ FLAGSHIP STORE EL BORN',
-        address: 'Carrer de les Caputxes, 2, 08003 Barcelona, Spain',
-        location: {lat: 41.3833695, lng: 2.1814855999999736},
-        website: 'http://microapps.com'
-      },
-      {
-        name: 'PAEZ STORE CC. Maremagnum',
-        address: "Moll d'Espanya, 5, 08039 Barcelona, Spain",
-        location: {lat: 41.3752, lng: 2.18286999999998}
-      }
-    ]
+    loadStores: function(location) {
+      // location: {lat, lng}
+      // you can load your stores based on location dynamically
+      return Promise.resolve([
+        {
+          name: 'PAEZ FLAGSHIP STORE EL BORN',
+          address: 'Carrer de les Caputxes, 2, 08003 Barcelona, Spain',
+          location: {lat: 41.3833695, lng: 2.1814855999999736},
+          website: 'http://microapps.com'
+        },
+        {
+          name: 'PAEZ STORE CC. Maremagnum',
+          address: "Moll d'Espanya, 5, 08039 Barcelona, Spain",
+          location: {lat: 41.3752, lng: 2.18286999999998}
+        }
+      ])
+    }
   })
 </script>
 ```
@@ -69,6 +73,7 @@ A drop-in module for a website that shows a google map with list of stores in th
 | --- | --- | --- |
 | `container` | id of the element where the map will be rendered
 | `stores` | an array of stores to render on a map `[{name, address, location: {lat, lng}, website}]`
+| `loadStores` | a function that returns an array of stores directly or a Promise. It accepts a location `{lat, lng}` param and is called every time location autocomplete is triggered
 | `zoom` | initial map zoom | 6
 | `center` | initial map center | `{lat: 39.6433995, lng: -6.4396778}`
 | `storeMarkerIcon` | custom store marker icon
@@ -79,6 +84,6 @@ A drop-in module for a website that shows a google map with list of stores in th
 | `unitSystem` | used to show distance `METRIC` or `IMPERIAL` | `METRIC`
 | `limit` | shows only first n closest results to the location | 10
 | `homeLocationHint` |  text that appears in an info window of home location marker | Current location
-| `farAwayMarkerOpacity` | an opacity of a marker that is too far away (determined by `limit`)
+| `farAwayMarkerOpacity` | an opacity of a marker that is too far away (determined by `limit`) | 0.6
 | `fullWidthMap` | changes the appearance to make the map full width and store list as an overlay on top of it
 
