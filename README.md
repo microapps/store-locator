@@ -18,8 +18,8 @@ A drop-in module for a website that shows a google map with list of stores in th
 ## CDN
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/microapps/store-locator@1.1.1/dist/store-locator.css">
-<script src="https://cdn.jsdelivr.net/gh/microapps/store-locator@1.1.1/dist/store-locator.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/microapps/store-locator@latest/dist/store-locator.css">
+<script src="https://cdn.jsdelivr.net/gh/microapps/store-locator@latest/dist/store-locator.js"></script>
 ```
 
 ## Usage
@@ -65,18 +65,20 @@ A drop-in module for a website that shows a google map with list of stores in th
 
 ## Configuration options
 
-- `container` - id of the element where the map will be rendered
-- `stores` - an array of stores to render on a map,
-- `zoom` - initial map zoom `default: 6`,
-- `center` - initial map center `default: {lat: 39.6433995, lng: -6.4396778}`
-- `storeMarkerIcon` - custom store marker icon
-- `homeMarkerIcon` - custom current location marker icon
-- `markerIconSize` - an array of [x, y] to scale marker icon
-- `searchHint` - text rendered after a search input
-- `travelMode` - the mode used to calculate distance `WALKING` or `DRIVING`, `default: 'DRIVING'`
-- `unitSystem` - used to show distance `METRIC` or `IMPERIAL` `default: 'METRIC'`
-- `limit` - shows only first n closest results to the location `default: 10`
-- `homeLocationHint` - text that appears in an info window of home location marker `default: 'Current location'`
-- `farAwayMarkerOpacity` - an opacity of a marker that is too far away (determined by `limit`)
-- `fullWidthMap` - changes the appearance to make the map full width and store list as an overlay on top of it
+| Option | Description | Default |
+| --- | --- | --- |
+| `container` | id of the element where the map will be rendered
+| `stores` | an array of stores to render on a map
+| `zoom` | initial map zoom | 6
+| `center` | initial map center | `{lat: 39.6433995, lng: -6.4396778}`
+| `storeMarkerIcon` | custom store marker icon
+| `homeMarkerIcon` | custom current location marker icon
+| `markerIconSize` | an array of [x, y] to scale marker icon
+| `searchHint` | text rendered after a search input
+| `travelMode` | the mode used to calculate distance `WALKING` or `DRIVING` | `DRIVING`
+| `unitSystem` | used to show distance `METRIC` or `IMPERIAL` | `METRIC`
+| `limit` | shows only first n closest results to the location | 10
+| `homeLocationHint` |  text that appears in an info window of home location marker | Current location
+| `farAwayMarkerOpacity` | an opacity of a marker that is too far away (determined by `limit`)
+| `fullWidthMap` | changes the appearance to make the map full width and store list as an overlay on top of it
 

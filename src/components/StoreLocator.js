@@ -71,7 +71,6 @@ export class StoreLocator extends Component {
           ${store.address}
         </div>`
     });
-
     const marker = new google.maps.Marker({
       position: store.location,
       title: store.name,
