@@ -118,7 +118,7 @@ module.exports = function(options) {
     }
   };
 
-  if (options.dev) {
+  if (!options.prod) {
     webpackConfig.devtool = 'cheap-module-eval-source-map';
   }
 
