@@ -68,7 +68,7 @@ A drop-in module for a website that shows a google map with list of stores in th
 | Option | Description | Default |
 | --- | --- | --- |
 | `container` | id of the element where the map will be rendered
-| `stores` | an array of stores to render on a map `{name, address, location: {lat, lng}, website}`
+| `stores` | an array of stores to render on a map `[{name, address, location: {lat, lng}, website}]`
 | `zoom` | initial map zoom | 6
 | `center` | initial map center | `{lat: 39.6433995, lng: -6.4396778}`
 | `storeMarkerIcon` | custom store marker icon
